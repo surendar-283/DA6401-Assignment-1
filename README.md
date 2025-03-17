@@ -7,7 +7,6 @@ This repository contains a flexible implementation of feedforward neural network
 - **[Wandb Report](https://wandb.ai/surendarmohan283-indian-institute-of-technology-madras/DA6401_A1/reports/Surendar-s-DA6401-Assignment-1--VmlldzoxMTY5NDQ1MA)**
 - **[GitHub Repository](https://github.com/surendar-283/DA6401-Assignment-1.git)**
 
-
 ## Features
 
 - Support for multiple datasets (MNIST, Fashion MNIST)
@@ -37,6 +36,9 @@ pip install numpy wandb keras tensorflow pandas
 ### Download Required Files
 
 To execute the program, ensure you have downloaded both `main.py` and `train.py` files.
+
+- `main.py`: This file serves as the entry point for running the neural network experiments. It initializes the training process and manages configurations.
+- `train.py`: This file contains the core implementation of the neural network training process, including dataset handling, model training, and logging results to Weights & Biases.
 
 ### Basic Training
 
