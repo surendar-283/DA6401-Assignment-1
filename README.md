@@ -4,7 +4,7 @@ This repository contains a flexible implementation of feedforward neural network
 
 ## Links
 
-- **[Wandb Report](https://wandb.ai/surendarmohan283-indian-institute-of-technology-madras/DA6401_A1/reports/Surendar-s-DA6401-Assignment-1--VmlldzoxMTY5NDQ1MA)**
+- **[Wandb Report](https://wandb.ai/surendarmohan283-indian-institute-of-technology-madras/DA6401_A1/reports/Surendar-s-DA6401-Assignment-1--VmlldzoxMTY5NDQ1MA?accessToken=1hzszu06wrbqvu3xsl566kwju3ljhyoio589zahuqcd4qgclw0saqepnnl9twhh5)**
 - **[GitHub Repository](https://github.com/surendar-283/DA6401-Assignment-1.git)**
 
 ## Features
