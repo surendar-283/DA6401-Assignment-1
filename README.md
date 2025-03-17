@@ -2,6 +2,12 @@
 
 This repository contains a flexible implementation of feedforward neural networks with various optimization algorithms.
 
+## Links
+
+- **[Wandb Report](https://wandb.ai/surendarmohan283-indian-institute-of-technology-madras/DA6401_A1/reports/Surendar-s-DA6401-Assignment-1--VmlldzoxMTY5NDQ1MA)**
+- **[GitHub Repository](https://github.com/surendar-283/DA6401-Assignment-1.git)**
+
+
 ## Features
 
 - Support for multiple datasets (MNIST, Fashion MNIST)
