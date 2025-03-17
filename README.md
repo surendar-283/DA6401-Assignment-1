@@ -83,50 +83,6 @@ python train.py \
 | `-sz`, `--hidden_size` | 128 | Number of neurons per hidden layer |
 | `-a`, `--activation` | tanh | Activation function: `["identity", "sigmoid", "tanh", "ReLU"]` |
 
-## Suggested Hyperparameter Combinations
-
-### Experiment 1: Effect of Hidden Layers
-
-```bash
-python train.py --num_layers 3 --hidden_size 64 --optimizer adam
-python train.py --num_layers 4 --hidden_size 64 --optimizer adam
-python train.py --num_layers 5 --hidden_size 64 --optimizer adam
-```
-
-### Experiment 2: Effect of Optimizer
-
-```bash
-python train.py --optimizer sgd --learning_rate 0.001
-python train.py --optimizer momentum --learning_rate 0.001
-python train.py --optimizer nag --learning_rate 0.001
-python train.py --optimizer rmsprop --learning_rate 0.001
-python train.py --optimizer adam --learning_rate 0.001
-python train.py --optimizer nadam --learning_rate 0.001
-```
-
-### Experiment 3: Effect of Activation Function
-
-```bash
-python train.py --activation sigmoid
-python train.py --activation tanh
-python train.py --activation ReLU
-```
-
-### Experiment 4: Effect of Weight Initialization
-
-```bash
-python train.py --weight_init random
-python train.py --weight_init Xavier
-```
-
-### Experiment 5: Effect of Weight Decay
-
-```bash
-python train.py --weight_decay 0
-python train.py --weight_decay 0.0005
-python train.py --weight_decay 0.5
-```
-
 ## Viewing Results
 
 Results will be logged to your Weights & Biases account. You can view them by going to:
