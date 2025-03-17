@@ -44,7 +44,7 @@ def train_neural_network(config):
     
     layer_sizes.append(output_size)
     
-    parameters = main.initialize_parameters(layer_sizes, init_method=config.weight_init, weight_decay=config.weight_decay)
+    parameters = main.initialize_parameters(layer_sizes, init_method=config.weight_init)
     
     loss_type = "cross_entropy" if config.loss == "cross_entropy" else "mse"
     
