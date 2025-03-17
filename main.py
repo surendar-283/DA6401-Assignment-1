@@ -30,7 +30,7 @@ def identity(x):
 def identity_derivative(x):
     return np.ones_like(x)
 
-def initialize_parameters(layer_sizes, init_method="random", weight_decay=0):
+def initialize_parameters(layer_sizes, init_method="random"):
     np.random.seed(1)
     p = []
 
@@ -71,7 +71,7 @@ def forward(X, p, activation="sigmoid"):
 
 def backward(X, Y, p, a, activation="sigmoid", wd=0, loss_type="cross_entropy"):
     m = X.shape[0]
-    gradients = {}
+    g = {}
 
     act_deriv = sigmoid_derivative
     if activation == "tanh":
@@ -88,17 +88,16 @@ def backward(X, Y, p, a, activation="sigmoid", wd=0, loss_type="cross_entropy"):
         dZ_out[np.arange(m), Y] -= 1
         dZ_out /= m
     elif loss_type == "mse":
-        Y_one_hot = np.zeros_like(A_out)
-        Y_one_hot[np.arange(m), Y] = 1
-        dZ_out = 2 * (A_out - Y_one_hot) / m
+        temp = np.zeros_like(A_out)
+        temp[np.arange(m), Y] = 1
+        dZ_out = 2 * (A_out - temp) / m
 
     W_out = p[-1][0]
     reg_term = 0
     if wd > 0:
         reg_term = wd * W_out
 
-    gradients[len(p)] = (np.dot(a[len(p)-1].T, dZ_out) + reg_term,
-                          np.sum(dZ_out, axis=0, keepdims=True))
+    g[len(p)] = (np.dot(a[len(p)-1].T, dZ_out) + reg_term,np.sum(dZ_out, axis=0, keepdims=True))
 
     dA = np.dot(dZ_out, p[-1][0].T)
 
@@ -122,12 +121,12 @@ def backward(X, Y, p, a, activation="sigmoid", wd=0, loss_type="cross_entropy"):
         if wd > 0:
             reg_term = wd * W
 
-        gradients[i+1] = (np.dot(a[i].T, dZ) + reg_term,
+        g[i+1] = (np.dot(a[i].T, dZ) + reg_term,
                           np.sum(dZ, axis=0, keepdims=True))
 
         dA = np.dot(dZ, p[i][0].T)
 
-    return gradients
+    return g
 
 def compute_loss(Y_pred, Y_true, p=None, wd=0, loss_type="cross_entropy"):
     m = Y_true.shape[0]
@@ -208,15 +207,11 @@ def momentum(config, X_val, y_val, X_train, y_train, parameters):
     beta = config.momentum
 
     for epoch in range(config.epochs):
-        indices = np.random.permutation(X_train.shape[0])
-        xs = X_train[indices]
-        ys = y_train[indices]
-
         batch_losses = []
 
         for i in range(0, X_train.shape[0], batch_size):
-            X_batch = xs[i:i + batch_size]
-            y_batch = ys[i:i + batch_size]
+            X_batch = X_train[i:i + batch_size]
+            y_batch = y_train[i:i + batch_size]
 
             y_pred, layer_activations = forward(X_batch, parameters, activation=config.activation)
 
@@ -259,15 +254,11 @@ def nesterov(config, X_val, y_val, X_train, y_train, parameters):
     beta = config.momentum
 
     for epoch in range(config.epochs):
-        indices = np.random.permutation(X_train.shape[0])
-        xs = X_train[indices]
-        ys = y_train[indices]
-
         batch_losses = []
 
         for i in range(0, X_train.shape[0], batch_size):
-            X_batch = xs[i:i + batch_size]
-            y_batch = ys[i:i + batch_size]
+            X_batch = X_train[i:i + batch_size]
+            y_batch = y_train[i:i + batch_size]
 
             lookahead_parameters = []
             for j in range(len(parameters)):
@@ -320,15 +311,12 @@ def rmsprop(config, X_val, y_val, X_train, y_train, parameters):
 
 
     for epoch in range(config.epochs):
-        indices = np.random.permutation(X_train.shape[0])
-        xs = X_train[indices]
-        ys = y_train[indices]
 
         batch_losses = []
 
         for i in range(0, X_train.shape[0], batch_size):
-            X_batch = xs[i:i + batch_size]
-            y_batch = ys[i:i + batch_size]
+            X_batch = X_train[i:i + batch_size]
+            y_batch = y_train[i:i + batch_size]
 
             y_pred, layer_activations = forward(X_batch, parameters, activation=config.activation)
 
@@ -375,16 +363,12 @@ def adam(config, X_val, y_val, X_train, y_train, parameters):
     t = 0
 
     for epoch in range(config.epochs):
-        indices = np.random.permutation(X_train.shape[0])
-        xs = X_train[indices]
-        ys = y_train[indices]
-
         batch_losses = []
 
         for i in range(0, X_train.shape[0], batch_size):
             t += 1
-            X_batch = xs[i:i + batch_size]
-            y_batch = ys[i:i + batch_size]
+            X_batch = X_train[i:i + batch_size]
+            y_batch = y_train[i:i + batch_size]
 
             y_pred, layer_activations = forward(X_batch, parameters, activation=config.activation)
 
@@ -442,16 +426,13 @@ def nadam(config, X_val, y_val, X_train, y_train, parameters):
     t = 0
 
     for epoch in range(config.epochs):
-        indices = np.random.permutation(X_train.shape[0])
-        xs = X_train[indices]
-        ys = y_train[indices]
 
         batch_losses = []
 
         for i in range(0, X_train.shape[0], batch_size):
             t += 1
-            X_batch = xs[i:i + batch_size]
-            y_batch = ys[i:i + batch_size]
+            X_batch = X_train[i:i + batch_size]
+            y_batch = y_train[i:i + batch_size]
 
             y_pred, layer_activations = forward(X_batch, parameters, activation=config.activation)
 
